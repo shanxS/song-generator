@@ -18,7 +18,7 @@ function songSpectrum = calculateSongSpectrum (
     requiredSpectrum = completeSpectrum(1:end/2, :);
     numFrequencyBin = floor(length(requiredSpectrum) /   \
                       frequencyBinLength) - 1;
-                      
+keyboard
     songSpectrum = zeros(numFrequencyBin, 1);
     for frequencyBinNumber = 1:numFrequencyBin
         
@@ -40,10 +40,17 @@ function signalWindow = getSignalWindow (timeBinNumber   \
     samplesInOneMs = floor(fs/msInSecond);
     
     samplesInBin = timeBinLengthMs * samplesInOneMs;
-    startingSample = timeBinNumber * samplesInOneMs;
+    startingSample = timeBinNumber * samplesInBin;
     endingSample = startingSample + samplesInBin;
+    signalLength = length(signal);
     
-    signalWindow = signal(startingSample:endingSample, :);
-    signalWindow = signalWindow .* (hanning (length(      \
-                                         signalWindow)));
+    if endingSample <= signalLength
+        signalWindow = signal(startingSample:             \
+                                        endingSample, :);
+        signalWindow = signalWindow .* (hanning (length(  \
+                                           signalWindow)));
+    else
+        % if signal is not long enough then treat it as 0
+        signalWindow = zeros(samplesInBin, 1);
+    end
 end                                  

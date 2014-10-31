@@ -19,15 +19,17 @@ function timeBinData = calculateTimeBinData (           \
     numSongs = length(songs);
     for timeBinNumber = 1:max(numTimeBin)
         for songNumber = 1:numSongs
-            if timeBinNumber > numTimeBin(songNumber)
-                songSpectrum = 0;
-            else
-                songSpectrum = calculateSongSpectrum (   \
-                                      frequencyBinLength \
-                                     , timeBinNumber     \
-                                     , timeBinLengthMs   \
-                                     , songs(i));
+            
+            if (timeBinNumber > numTimeBin(songNumber)) \
+                && songNumber == 2
+                %keyboard
             end
+        
+            songSpectrum = calculateSongSpectrum (      \
+                                  frequencyBinLength    \
+                                 , timeBinNumber        \
+                                 , timeBinLengthMs      \
+                                 , songs(songNumber));
         
             timeBinData(songNumber, timeBinNumber) =    \
                                     struct ("spectrum"  \
