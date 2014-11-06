@@ -1,4 +1,4 @@
-% timeBinData[timeBinNumber][songNumber] is 2D rows contain songSpectrum for given time bin and columns contain time bins
+% timeBinData[songNumber][timeBinNumber] is 2D rows contain songSpectrum for given time bin and columns contain time bins
 %   songSpectrum[] is 1D array of values of freq. bin
 %
 % length of timeBinData is max number of time bins possible
@@ -20,11 +20,6 @@ function timeBinData = calculateTimeBinData (           \
     for timeBinNumber = 1:max(numTimeBin)
         for songNumber = 1:numSongs
             
-            if (timeBinNumber > numTimeBin(songNumber)) \
-                && songNumber == 2
-                %keyboard
-            end
-        
             songSpectrum = calculateSongSpectrum (      \
                                   frequencyBinLength    \
                                  , timeBinNumber        \

@@ -18,7 +18,7 @@ function songSpectrum = calculateSongSpectrum (
     requiredSpectrum = completeSpectrum(1:end/2, :);
     numFrequencyBin = floor(length(requiredSpectrum) /   \
                       frequencyBinLength) - 1;
-keyboard
+
     songSpectrum = zeros(numFrequencyBin, 1);
     for frequencyBinNumber = 1:numFrequencyBin
         
