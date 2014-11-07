@@ -11,8 +11,6 @@ function timeBinData = driver
     
     % mili second
     timeBinLengthMs = 100;
-    % integer freq. in a bin
-    frequencyBinLength = 10; 
     
     [song1Pcm fs1] = loadSongTrimToOneChannel( \
                                  'fixyou.wav');
@@ -23,7 +21,6 @@ function timeBinData = driver
     songs(2) = convertSongDataToStruct (song2Pcm, fs2);
     
     timeBinData = calculateTimeBinData (timeBinLengthMs \
-                                   , frequencyBinLength \
                                    , songs);
     
 end

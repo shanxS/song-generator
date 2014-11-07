@@ -2,8 +2,7 @@
 % length is equal to total number of frequencyBin possible
 
 function songSpectrum = calculateSongSpectrum ( 
-                                     frequencyBinLength \
-                                     , timeBinNumber    \
+                                       timeBinNumber    \
                                      , timeBinLengthMs  \
                                      , dSong)
 
@@ -16,20 +15,8 @@ function songSpectrum = calculateSongSpectrum (
                                   , signal);
     completeSpectrum = fft(signalWindow);
     requiredSpectrum = completeSpectrum(1:end/2, :);
-    numFrequencyBin = floor(length(requiredSpectrum) /   \
-                      frequencyBinLength) - 1;
-
-    songSpectrum = zeros(numFrequencyBin, 1);
-    for frequencyBinNumber = 1:numFrequencyBin
-        
-        startingFreq = frequencyBinNumber * frequencyBinLength;
-        endingFreq = startingFreq + frequencyBinLength;
-        
-        spectrum = requiredSpectrum(startingFreq:  \
-                                    endingFreq, :);
-        
-        songSpectrum(frequencyBinNumber) = mean(spectrum);
-    end
+    
+    songSpectrum = requiredSpectrum;
 end                                            
 
 function signalWindow = getSignalWindow (timeBinNumber   \

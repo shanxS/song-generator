@@ -5,7 +5,6 @@
 
 function timeBinData = calculateTimeBinData (           \
                                      timeBinLengthMs    \
-                                   , frequencyBinLength \
                                    , songs);
 
     % stores max number of bins for all songs
@@ -21,8 +20,7 @@ function timeBinData = calculateTimeBinData (           \
         for songNumber = 1:numSongs
             
             songSpectrum = calculateSongSpectrum (      \
-                                  frequencyBinLength    \
-                                 , timeBinNumber        \
+                                   timeBinNumber        \
                                  , timeBinLengthMs      \
                                  , songs(songNumber));
         
