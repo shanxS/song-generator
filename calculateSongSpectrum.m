@@ -13,10 +13,11 @@ function songSpectrum = calculateSongSpectrum (
                                   , timeBinLengthMs \
                                   , fs              \
                                   , signal);
+                                  
     completeSpectrum = fft(signalWindow);
     requiredSpectrum = completeSpectrum(1:end/2, :);
     
-    songSpectrum = requiredSpectrum;
+    songSpectrum = requiredSpectrum';
 end                                            
 
 function signalWindow = getSignalWindow (timeBinNumber   \

@@ -10,7 +10,7 @@
 function timeBinData = driver 
     
     % mili second
-    timeBinLengthMs = 100;
+    timeBinLengthMs = 40;
     
     [song1Pcm fs1] = loadSongTrimToOneChannel( \
                                  'fixyou.wav');

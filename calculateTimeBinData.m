@@ -25,7 +25,7 @@ function timeBinData = calculateTimeBinData (           \
                                  , songs(songNumber));
         
             timeBinData(songNumber, timeBinNumber) =    \
-                                    struct ("spectrum"  \
+                                 struct (getFieldName() \
                                          , songSpectrum);
                              
         end
