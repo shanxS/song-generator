@@ -9,6 +9,7 @@ function [Xp yp outXp] = getPhaseDataMatrices (timeBinData\
     % rows are instance numbers
     
     % For feature matrix, columns are features
+    % external features are not yet in corporated
     % features are: 
     % 1. phase of current (song, dt, df)
     % 2. avg phase for this (song, dt)

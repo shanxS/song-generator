@@ -10,6 +10,7 @@ function [XMag yMag outXMag] = getMagnitudeDataMatrices (
     % rows are instance numbers
     
     % For feature matrix, columns are features
+    % external features are not yet in corporated
     % features are: 
     % 1. magnitude of current (song, dt, df)
     % 2. average of magnitude for this (song, dt)

@@ -4,7 +4,8 @@ function updatedSignal = consolidatePrediction (outSignal\
                                    , outPhase, outMag)
 
     frequency = outMag * (cos(outPhase) + i*sin(outPhase));
-    (outSignal(timeBinNumber).(getFieldName()))(frequencyBinNumber) = frequency;
+    (outSignal(timeBinNumber).(getFieldName()))(          \
+                           frequencyBinNumber) = frequency;
     
     updatedSignal = outSignal;
 end
