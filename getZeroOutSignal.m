@@ -5,8 +5,7 @@ function newSignal = getZeroOutSignal(timeBinData)
     numFrequencyBin = length(signal.(getFieldName()));
     
     for timeBinNumber = 1:numTimeBin
-        newSignal(timeBinNumber).(getFieldName()) = zeros \
-                                    (1, numFrequencyBin);
+        newSignal(timeBinNumber).(getFieldName()) = zeros(1, numFrequencyBin);
     end
     
 end
