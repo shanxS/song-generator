@@ -16,16 +16,16 @@ function outSignal = estimateOutSignal (timeBinData)
     
         % loop for freq
         for frequencyBinNumber = 1:numFrequencyBin
-            
+        
+            diary on
+            printf("\nEvaluating for timeBin %d  frequencyBin %d", timeBinNumber, frequencyBinNumber);
+            diary off
+           
             % 2d array for external features. Rows hold instances, columns hold features
             externalFeatures = getExternalFeatures(     \
                                      numTrainingData    \
                                    , timeBinNumber      \
                                    , frequencyBinNumber);
-           
-            diary on
-            printf("Evaluating pahse for %d %d", timeBinNumber, frequencyBinNumber);
-            diary off
            
             % Xp is feature matrix for phase
             % yp is output matrix for phase
@@ -36,10 +36,6 @@ function outSignal = estimateOutSignal (timeBinData)
                                    , frequencyBinNumber \
                                    , externalFeatures);            
             outPhase = predict(Xp, yp, outXp);
-            
-            diary on
-            printf("Evaluating magnitude for %d %d", timeBinNumber, frequencyBinNumber);
-            diary off
             
             % XMag is feature matrix for magnitude
             % yMag is output matrix for magnitude
