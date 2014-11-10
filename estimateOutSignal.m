@@ -23,6 +23,10 @@ function outSignal = estimateOutSignal (timeBinData)
                                    , timeBinNumber      \
                                    , frequencyBinNumber);
            
+            diary on
+            printf("Evaluating pahse for %d %d", timeBinNumber, frequencyBinNumber);
+            diary off
+           
             % Xp is feature matrix for phase
             % yp is output matrix for phase
             [Xp yp outXp] = getPhaseDataMatrices (
@@ -33,6 +37,9 @@ function outSignal = estimateOutSignal (timeBinData)
                                    , externalFeatures);            
             outPhase = predict(Xp, yp, outXp);
             
+            diary on
+            printf("Evaluating magnitude for %d %d", timeBinNumber, frequencyBinNumber);
+            diary off
             
             % XMag is feature matrix for magnitude
             % yMag is output matrix for magnitude
