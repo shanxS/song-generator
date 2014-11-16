@@ -6,7 +6,3 @@ The idea is to implement an algorithm which takes a set of vocal-less songs from
 
 
 Java was used to generate Octave predictors to run predictions in parallel processes
-
-TODO
-----
-driver.m will be updated to make the process of generation seamless
