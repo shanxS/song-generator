@@ -27,8 +27,8 @@ function timeBinData = driver
     saveTrainingData (timeBinData);
     
     % generate predictors and predictor executor
-    frequencyBinCount = size(timeBinData, 2);
-    timeBinCount = size(timeBinData(1, 1).              \
+    timeBinCount = size(timeBinData, 2);
+    frequencyBinCount = size(timeBinData(1, 1).              \
                                 (getFieldName()), 2);
     generatePredictors(frequencyBinCount, timeBinCount);
     
@@ -37,7 +37,7 @@ function timeBinData = driver
     predictorExecutor
     cd ..
     
-    % run consolidator
+    % run consolidator and save
     
 end
 

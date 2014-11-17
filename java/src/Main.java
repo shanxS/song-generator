@@ -6,6 +6,10 @@ import java.io.FileOutputStream;
  * Created by shanxS on 11/11/2014.
  */
 public class Main {
+
+    static final private String warningHeader = "% this is a computer generated file\n"+
+            "% any changes to this file will we overwritten\n";
+
     public static void main(String args[]){
         Integer frequencyBinCount = null;
         Integer timebinCount = null;
@@ -32,7 +36,9 @@ public class Main {
         final String quotes = "\"";
         final String header = "function predictorExecutor\n" +
                 "    \n" +
-                "    options = \"octave --silent --no-window-system --eval\";\n";
+                "    currentDir = pwd;\n" +
+                "    pathOption = strcat(\"--norc --exec-path \\t\", currentDir);\n" +
+                "    options = strcat(\"octave \\t\", pathOption, \"\\t --silent --no-window-system --eval\");\n";
 
         //final String pathValueVariable = "    pathValue = ";
         final String frequencyBinCoutnVariable = "    frequencyBinCount = ";
@@ -68,11 +74,10 @@ public class Main {
 
             final File f = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 
-            //String path = pathValueVariable + quotes + f.getAbsolutePath() + "..\\..\\..\\..\\features" + quotes + line;
             String frequencyBin = frequencyBinCoutnVariable + frequencyBinCount.toString() + line;
             String timeBin = timeBinCountVaruiable + timebinCount.toString() + line;
 
-            octaveScript = header + frequencyBin + timeBin + body;
+            octaveScript = warningHeader + header + frequencyBin + timeBin + body;
 
             out.write(octaveScript.getBytes());
             out.close();
@@ -90,7 +95,7 @@ public class Main {
             for (int timeBinNumber=1; timeBinNumber < timebinCount; ++timeBinNumber) {
                 for (int frequencyBinNumber=1; frequencyBinNumber < frequencyBinCount; ++frequencyBinNumber) {
                     FileOutputStream out = new FileOutputStream("..\\predictors\\predictfreqt" + timeBinNumber +
-                                          "f" + frequencyBinNumber + ".m");
+                            "f" + frequencyBinNumber + ".m");
                     octaveScript = getPredictorOctaveScript("freq", timeBinNumber, frequencyBinNumber);
                     out.write(octaveScript.getBytes());
                     out.close();
@@ -128,7 +133,7 @@ public class Main {
                 "    \n" +
                 "end";
 
-        String script = "";
+        String script = warningHeader;
         final String folderEscapseSequence = "\\\\";
         String featureFileName;
         String predictedValeFilename;
