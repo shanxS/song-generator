@@ -65,6 +65,10 @@ public class Main {
                 "                           \".m\");\n" +
                 "            arg = strcat (options, \"\\t\", predictorFilename);\n" +
                 "            system(arg, false, \"async\");\n" +
+                "            \n" +
+                "            if mod(frequencyBinNumber, 10) == 0\n" +
+                "                sleep(30);\n" +
+                "            end\n" +
                 "        end\n" +
                 "    end\n" +
                 "end";
@@ -128,8 +132,11 @@ public class Main {
                 "        fminunc(@(t)(costFunction(t, X, y)), initial_theta, options);\n" +
                 "        \n" +
                 "    predictedValue = [1 in] * theta;\n";
-        final String octavePredictorFooter = "    \n" +
+
+        final String octavePredictorFooter ="    \n" +
                 "    save (\"-text\", savePath, \"predictedValue\");\n" +
+                "    \n" +
+                "    quit;\n" +
                 "    \n" +
                 "end";
 
