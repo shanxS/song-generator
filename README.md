@@ -8,9 +8,9 @@ Architecture
 ============
 Driver.m is the orchestrator of the process. It returns sampled data and saves generated song on disk.
 
-Since Octave runs in single process and multiple predictions can be done at same time - so to use all available CPU threads a Java code was writtem which outputs multiple .m files which are predictors and can be run parallely in individula proceses. The only cavet is that do not start processing T+1th time bin unless prediction for Tth time bin is not over. Java code also creates an executor which takes care of this.
+Since Octave runs in single process and multiple predictions can be done at same time - so to use all available CPU threads a Java code was writtem which outputs multiple .m files which are predictors and can be run parallely in individula proceses. The only cavet is that not to start predicting T+1th time bin until prediction for Tth time bin is complete. Java code also creates an executor which takes care of this.
 
-Dirver.m first samples the input song, saves the prediction data, runs the java code to generate predictors, run the predictorexecutor and finally consolidates data for all predictions and writes the generated song as wav file on the disk
+Dirver.m first samples the input song, saves the prediction data, runs the java code to generate predictors, run the predictor executor and finally consolidates data for all predictions and writes the generated song as wav file on the disk
 
 
 TODO
