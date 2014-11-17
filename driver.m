@@ -7,7 +7,7 @@
 %
 % songs[] is a 1D array containing following struct
 %   struct ("fs", <int value>, "pcm", <1D array of float>) === dSong
-function [outSignal timeBinData] = driver 
+function timeBinData = driver 
     
     % mili second
     timeBinLengthMs = 40;
@@ -23,10 +23,21 @@ function [outSignal timeBinData] = driver
     timeBinData = calculateTimeBinData (timeBinLengthMs \
                                        , songs);
     
-    % make output signal in format of timeBinData
-    outSignal = estimateOutSignal (timeBinData);
+    % write training data to files
+    saveTrainingData (timeBinData);
     
-    % make consolidatedSignal and write the file
+    % generate predictors and predictor executor
+    frequencyBinCount = size(timeBinData, 2);
+    timeBinCount = size(timeBinData(1, 1).              \
+                                (getFieldName()), 2);
+    generatePredictors(frequencyBinCount, timeBinCount);
+    
+    % run predictors
+    cd predictors
+    predictorExecutor
+    cd ..
+    
+    % run consolidator
     
 end
 
