@@ -16,7 +16,7 @@ function timeBinData = calculateTimeBinData (           \
     end
     
     numSongs = length(songs);
-    for timeBinNumber = 1:max(numTimeBin)
+    for timeBinNumber = 1: 5 % limiting to 4 seconds %max(numTimeBin)
         for songNumber = 1:numSongs
             
             songSpectrum = calculateSongSpectrum (      \

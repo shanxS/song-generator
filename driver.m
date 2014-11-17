@@ -26,6 +26,19 @@ function timeBinData = driver
     % write training data to files
     saveTrainingData (timeBinData);
     
+    % generate predictors and predictor executor
+    frequencyBinCount = size(timeBinData, 2);
+    timeBinCount = size(timeBinData(1, 1).              \
+                                (getFieldName()), 2);
+    generatePredictors(frequencyBinCount, timeBinCount);
+    
+    % run predictors
+    cd predictors
+    predictorExecutor
+    cd ..
+    
+    % run consolidator
+    
 end
 
 function dSongData = convertSongDataToStruct (songPcm, \

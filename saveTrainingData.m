@@ -18,7 +18,7 @@ function saveTrainingData (timeBinData)
     frequencyPostfix = "f";
     
     % loop for time
-    for timeBinNumber = 1:numTimeBin
+    for timeBinNumber = 1:(numTimeBin - 1)
     
         % loop for freq
         for frequencyBinNumber = 1:numFrequencyBin

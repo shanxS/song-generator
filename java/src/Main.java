@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
@@ -16,11 +17,69 @@ public class Main {
             System.out.println("frequencyBinCount: " + frequencyBinCount + " timebinCount: " + timebinCount);
 
             generatePredictors(frequencyBinCount, timebinCount);
+            generatePredictorExecutor(frequencyBinCount, timebinCount);
         }catch(Exception e){
             System.out.print("Main::main exception: " + e.getMessage());
         }
 
 
+    }
+
+    private static void generatePredictorExecutor(Integer frequencyBinCount, Integer timebinCount) {
+        String octaveScript = "";
+
+        final String line = ";\n";
+        final String quotes = "\"";
+        final String header = "function predictorExecutor\n" +
+                "    \n" +
+                "    options = \"octave --silent --no-window-system --eval\";\n";
+
+        //final String pathValueVariable = "    pathValue = ";
+        final String frequencyBinCoutnVariable = "    frequencyBinCount = ";
+        final String timeBinCountVaruiable = "    timebinCount = ";
+
+        final String body = "    for timeBinNumber = 1:timebinCount\n" +
+                "        for frequencyBinNumber = 1:frequencyBinCount\n" +
+                "            \n" +
+                "            % run for frequency\n" +
+                "            predictorFilename = strcat(\"predictfreqt\",   \\\n" +
+                "                               num2str(timeBinNumber),   \\\n" +
+                "                               \"f\",                      \\\n" +
+                "                           num2str(frequencyBinNumber),  \\\n" +
+                "                           \".m\");\n" +
+                "                           \n" +
+                "            arg = strcat (options, \"\\t\", predictorFilename)\n" +
+                "            system(arg, false, \"async\");\n" +
+                "            \n" +
+                "            % run for phase\n" +
+                "            predictorFilename = strcat(\"predictphaset\",  \\\n" +
+                "                               num2str(timeBinNumber),   \\\n" +
+                "                               \"f\",                      \\\n" +
+                "                           num2str(frequencyBinNumber),  \\\n" +
+                "                           \".m\");\n" +
+                "            arg = strcat (options, \"\\t\", predictorFilename);\n" +
+                "            system(arg, false, \"async\");\n" +
+                "        end\n" +
+                "    end\n" +
+                "end";
+
+        try {
+            FileOutputStream out = new FileOutputStream("..\\predictors\\predictorExecutor" + ".m");
+
+            final File f = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+
+            //String path = pathValueVariable + quotes + f.getAbsolutePath() + "..\\..\\..\\..\\features" + quotes + line;
+            String frequencyBin = frequencyBinCoutnVariable + frequencyBinCount.toString() + line;
+            String timeBin = timeBinCountVaruiable + timebinCount.toString() + line;
+
+            octaveScript = header + frequencyBin + timeBin + body;
+
+            out.write(octaveScript.getBytes());
+            out.close();
+
+        }catch(Exception e){
+            System.out.print("Main::generatePredictors exception: " + e.getMessage());
+        }
     }
 
     private static void generatePredictors(Integer frequencyBinCount, Integer timebinCount){
@@ -32,13 +91,13 @@ public class Main {
                 for (int frequencyBinNumber=1; frequencyBinNumber < frequencyBinCount; ++frequencyBinNumber) {
                     FileOutputStream out = new FileOutputStream("..\\predictors\\predictfreqt" + timeBinNumber +
                                           "f" + frequencyBinNumber + ".m");
-                    octaveScript = getOctaveScript("freq", timeBinNumber, frequencyBinNumber);
+                    octaveScript = getPredictorOctaveScript("freq", timeBinNumber, frequencyBinNumber);
                     out.write(octaveScript.getBytes());
                     out.close();
 
                     out = new FileOutputStream("..\\predictors\\predictphaset" + timeBinNumber +
                             "f" + frequencyBinNumber + ".m");
-                    octaveScript = getOctaveScript("phase", timeBinNumber, frequencyBinNumber);
+                    octaveScript = getPredictorOctaveScript("phase", timeBinNumber, frequencyBinNumber);
                     out.write(octaveScript.getBytes());
                     out.close();
                 }
@@ -48,7 +107,7 @@ public class Main {
         }
     }
 
-    private static String getOctaveScript(String type, int timeBinNumber, int frequencyBinNumber) {
+    private static String getPredictorOctaveScript(String type, int timeBinNumber, int frequencyBinNumber) {
 
         final String octavePredictorHeader  = "function predict" + type + "t" + timeBinNumber + "f" + frequencyBinNumber+ "\n" +
                 "    load ";
