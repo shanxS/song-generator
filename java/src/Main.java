@@ -55,7 +55,7 @@ public class Main {
                 "                           \".m\");\n" +
                 "                           \n" +
                 "            arg = strcat (options, \"\\t\", predictorFilename)\n" +
-                "            system(arg, false, \"async\");\n" +
+                "            proc1 = system(arg, false, \"async\");\n" +
                 "            \n" +
                 "            % run for phase\n" +
                 "            predictorFilename = strcat(\"predictphaset\",  \\\n" +
@@ -64,13 +64,38 @@ public class Main {
                 "                           num2str(frequencyBinNumber),  \\\n" +
                 "                           \".m\");\n" +
                 "            arg = strcat (options, \"\\t\", predictorFilename);\n" +
-                "            system(arg, false, \"async\");\n" +
+                "            proc2 = system(arg, false, \"async\");\n" +
                 "            \n" +
-                "            if mod(frequencyBinNumber, 10) == 0\n" +
-                "                sleep(30);\n" +
+                "            if procCount >= maxProc\n" +
+                "                killProc(pid);\n" +
+                "                procCount = 1;\n" +
+                "            else\n" +
+                "            \n" +
+                "                pid(procCount) = proc1;\n" +
+                "                pid(procCount+1) = proc2;\n" +
+                "                procCount += 2;\n" +
                 "            end\n" +
+                "            \n" +
+                "            \n" +
+                "            if pauseCounter >= maxPauseCount\n" +
+                "                sleep(15);\n" +
+                "                pauseCounter = 0;\n" +
+                "            else\n" +
+                "                pauseCounter += 1;\n" +
                 "        end\n" +
                 "    end\n" +
+                "    end\n" +
+                "end\n" +
+                "\n" +
+                "function killProc(pid)\n" +
+                "    str = \"\";\n" +
+                "    for i=1:length(pid)\n" +
+                "        str = strcat(str, \"\\t /PID \\t\", num2str(pid(i)));\n" +
+                "    end\n" +
+                "    \n" +
+                "    sleep(1);\n" +
+                "    cmd = strcat(\"taskkill \\t\", str);\n" +
+                "    system(cmd, false, \"async\");\n" +
                 "end";
 
         try {
